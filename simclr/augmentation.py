@@ -22,9 +22,9 @@ class SigAugmentation(object):
         if aug_name == 'random_crop':
             x = self.random_crop(x, p)
             return x
-        # elif aug_name == 'random_gaussian_noise':
-        #     x = self.random_gaussian_noise(x, p)
-        #     return x
+        elif aug_name == 'random_gaussian_noise':
+            x = self.random_gaussian_noise(x, p)
+            return x
         elif aug_name == 'random_permutation':
             x = self.random_permutation(x, p)
             return x
