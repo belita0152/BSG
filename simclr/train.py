@@ -13,7 +13,7 @@ from torch.utils.data import DataLoader
 from encoder import VGG
 import torch.nn as nn
 from torch import optim
-from loss.simclr import SimCLR
+from simclr import SimCLR
 from augmentation import SigAugmentation
 
 # from sklearn.decomposition import PCA
@@ -28,7 +28,7 @@ np.random.seed(random_seed)
 torch.manual_seed(random_seed)
 random.seed(random_seed)
 
-device = torch.device('cuda:1' if torch.cuda.is_available() else 'cpu')
+device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 ckpt_dir = './checkpoint_VGG_enc_no_dropout'
 log_dir = './log'
 
@@ -49,14 +49,14 @@ def get_args():
     parser.add_argument('--n_classes', default=6, type=int)
     parser.add_argument('--weight_decay', default=1e-4, type=float)
     parser.add_argument('--momentum', default=0.999, type=float)
-    parser.add_argument('--device', default=torch.device('cuda:1' if torch.cuda.is_available() else 'cpu'))
+    parser.add_argument('--device', default=torch.device('cuda:0' if torch.cuda.is_available() else 'cpu'))
 
     return parser.parse_args()
 
 
 # 1. Create dataset
 args = get_args()
-base_path = os.path.join(os.getcwd(), '..', 'shhs2_o')
+base_path = os.path.join(os.getcwd(), '..', '..', 'SSL_Signal_Segmentation', 'shhs2_o')
 data_path = sorted(glob.glob(os.path.join(base_path, '**/*data.parquet')))  # len: 2535
 mask_path = sorted(glob.glob(os.path.join(base_path, '**/*mask.parquet')))  # len: 2535
 
@@ -123,7 +123,7 @@ for epoch in range(args.train_epochs):
 
     epoch_train_loss = np.mean(np.array(epoch_train_loss))
 
-    if (epoch + 1) % 1 == 0:
+    if (epoch + 1) % 5 == 0:
         # (2) Validation (with PCA) : https://www.datacamp.com/tutorial/principal-component-analysis-in-python
         backbone.eval()
         model = KNeighborsClassifier(n_neighbors=2)
