@@ -22,9 +22,15 @@ class SigAugmentation(object):
         if aug_name == 'random_crop':
             x = self.random_crop(x, p)
             return x
+<<<<<<< HEAD
         elif aug_name == 'random_gaussian_noise':
             x = self.random_gaussian_noise(x, p)
             return x
+=======
+        # elif aug_name == 'random_gaussian_noise':
+        #     x = self.random_gaussian_noise(x, p)
+        #     return x
+>>>>>>> feat/HY-simclr-week1
         elif aug_name == 'random_permutation':
             x = self.random_permutation(x, p)
             return x
@@ -124,4 +130,8 @@ class SigAugmentation(object):
         aug_1, aug_2 = random.sample(self.augmentations, 2)
         x1 = self.process(x, aug_name=aug_1, p=0.95)
         x2 = self.process(x, aug_name=aug_2, p=0.95)
+<<<<<<< HEAD
         return x1, x2
+=======
+        return x1, x2
+>>>>>>> feat/HY-simclr-week1
