@@ -1,8 +1,6 @@
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-import numpy as np
-
 
 class SimCLR(nn.Module):
     def __init__(self, input_dim, hidden_dim, out_dim=16, temperature: float=0.1):
